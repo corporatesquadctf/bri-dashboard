@@ -1,0 +1,5 @@
+Log db fitur User Management:
+- Create Table Regional
+- Add Field RegionalId di Table Role
+- UPDATE Role Set RegionalId = 2 WHERE RoleId IN (12,13,14,17,18)
+- UPDATE Role Set RegionalId = 1 WHERE RoleId NOT IN (12,13,14,17,18)

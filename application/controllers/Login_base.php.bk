@@ -1,0 +1,110 @@
+<?php
+
+abstract class Login_base extends MY_Controller {
+
+    public $captcha_config;
+
+    function __construct() {
+        parent::__construct();
+        $this->captcha_config = array(
+            'expiration' => 7200,
+            'font_path' => APPPATH . '../assets/captcha.ttf',
+            'font_size' => 50,
+            'img_height' => 65,
+            'img_width' => 220,
+            'img_path' => 'captcha/',
+            'img_url' => base_url('captcha/'),
+            'word_length' => 4,
+            'pool' => '0123456789',
+            'colors' => array(
+                'background' => array(255, 255, 255),
+                'border' => array(255, 255, 255),
+                'text' => array(0, 0, 0),
+                'grid' => array(255, 40, 40)
+            )
+        );
+        $this->load->helper(array(
+            'form',
+            'url',
+            'security',
+            'captcha'
+        ));
+        $this->load->library(array(
+            'session',
+            'form_validation'
+        ));
+        $this->load->database();
+    }
+
+    public function index() {
+        $cap = create_captcha($this->captcha_config);
+        $this->session->unset_userdata('captchaCode');
+        $this->session->set_userdata('captchaCode', $cap['word']);
+        $data['captchaImg'] = $cap['image'];
+        $this->load->view('login_index', $data);
+    }
+
+    public function refreshCaptcha() {
+        $captcha = create_captcha($this->captcha_config);
+        $this->session->unset_userdata('captchaCode');
+        $this->session->set_userdata('captchaCode', $captcha['word']);
+        echo $captcha['image'];
+    }
+
+    public function logout() {
+        $this->session->sess_destroy();
+        redirect('logins');
+    }
+
+    protected function getAccess($role_id) {
+        $result = [
+            'PERFORMANCE' => [],
+            'REPORT' => [],
+            'ADMIN' => [],
+            'MASTER' => [],
+            'WORKFLOW' => [],
+            'LOG' => [],
+            'MONITORING' => [],
+            'PIPELINE' => []    
+        ];
+
+        $this->db->select('ACCESS_ROLES.*, MODULE.MODULE_PATH, MODULE.MODULE_NAME, MODULE.MODULE_TYPE');
+        $this->db->from('ACCESS_ROLES');
+        $this->db->join('MODULE', 'MODULE.ID = ACCESS_ROLES.MODULE_ID', 'left');
+        $this->db->where('ACCESS_ROLES.ROLE_ID', $role_id);
+        $this->db->where('MODULE.STATUS', 1);
+        $this->db->where('MODULE.ENVIRONMENT', DSC_ENVIRONMENT);
+        
+        $modules = $this->db->get()->result();
+        foreach ($modules as $module):
+            switch ($module->MODULE_TYPE):
+                case 1:
+                    $result['PERFORMANCE'][] = $module;
+                    break;
+                case 2:
+                    $result['REPORT'][] = $module;
+                    break;
+                case 3:
+                    $result['ADMIN'][] = $module;
+                    break;
+                case 4:
+                    $result['MASTER'][] = $module;
+                    break;
+                case 5:
+                    $result['WORKFLOW'][] = $module;
+                    break;
+                case 6:
+                    $result['MONITORING'][] = $module;
+                    break;
+                case 7:
+                    $result['PIPELINE'][] = $module;
+                    break;
+                case 8:
+                    $result['LOG'][] = $module;
+                    break;
+            endswitch;
+        endforeach;
+        return $result;
+    }
+
+}

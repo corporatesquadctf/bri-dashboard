@@ -1,0 +1,28 @@
+- username PN bisa pake 00 nya bisa juga tidak
+profile:
+- semua bisa melihat status
+- tag divisi, semua yg ada di divisi mendapat notifikasi
+- tag produk, produk yg ber relasi dengan divisi, semua divisi yg ada di produk mendapat notifikasi
+
+delegation:
+- pilih RM tidak berdasarkan divisi tertentu, di buka saja
+- tapi tetap ada relasi untuk melihat , misal BUMN 1 itu nanti RM nya siapa saja
+
+ROLE:
+kadiv -->	Evp
+wakadiv	--> vp
+GH	-->  avp
+
+institusi
+hbl 1
+hbl 2
+
+korporasi
+BUMN 1
+bumn 2
+agribisnis
+biskom
+sindikasi
+
+sisanya produk owner
+

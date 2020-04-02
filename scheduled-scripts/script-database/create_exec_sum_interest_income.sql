@@ -1,0 +1,19 @@
+IF OBJECT_ID('dbo.exec_sum_interest_income', 'U') IS NOT NULL 
+DROP TABLE dbo.exec_sum_interest_income
+GO 
+
+select * into exec_sum_interest_income from (
+
+SELECT 
+    YEAR(POSISI) year, 
+    MONTH(POSISI) month,
+	DIV_ID division,
+    SUM(ISNULL(PEND_BUNGA,0)) bunga, 
+    SUM(ISNULL(PEND_BUNGA_AKUMULASI,0)) bunga_total
+FROM FACT_KREDIT_CPA
+INNER JOIN VIEW_CUSTOMER_MAPPING ON 
+FACT_KREDIT_CPA.CIFNO = VIEW_CUSTOMER_MAPPING.CIF
+WHERE DIV_ID IS NOT NULL
+GROUP BY YEAR(POSISI), MONTH(POSISI), DIV_ID
+
+)SOURCE;

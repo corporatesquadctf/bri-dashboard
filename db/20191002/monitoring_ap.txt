@@ -1,0 +1,34 @@
+
+-- Drop table
+
+-- DROP TABLE BRIDashboard2.dbo.MonitoringAccountPlanning GO
+
+CREATE TABLE BRIDashboard2.dbo.MonitoringAccountPlanning (
+	MonitoringAccountPlanningId int IDENTITY(1,1) NOT NULL,
+	AccountPlanningId int NOT NULL,
+	Vcif varchar(10) COLLATE Latin1_General_CI_AS NOT NULL,
+	CustomerName varchar(100) COLLATE Latin1_General_CI_AS NOT NULL,
+	SektorUsaha varchar(100) COLLATE Latin1_General_CI_AS NULL,
+	Groupid varchar(10) COLLATE Latin1_General_CI_AS NULL,
+	GroupName varchar(100) COLLATE Latin1_General_CI_AS NOT NULL,
+	Clasified varchar(100) COLLATE Latin1_General_CI_AS NOT NULL,
+	AddBy varchar(10) COLLATE Latin1_General_CI_AS NOT NULL,
+	Status varchar(100) COLLATE Latin1_General_CI_AS NOT NULL,
+	DocumentStatusId int NOT NULL,
+	AccountPlanningAddon datetime NULL,
+	AccountPlanningPublish datetime NULL,
+	IsMain bit NULL,
+	CheckerPn varchar(MAX) COLLATE Latin1_General_CI_AS NULL,
+	SignerPn varchar(MAX) COLLATE Latin1_General_CI_AS NULL,
+	[Year] varchar(4) COLLATE Latin1_General_CI_AS NOT NULL,
+	ProgressCompanyInformation decimal(13,2) NULL,
+	ProgressBriStartingPosition decimal(13,2) NULL,
+	ProgressClientNeeds decimal(13,2) NULL,
+	ProgressActionPlan decimal(13,2) NULL,
+	ProgressSimulationsCpa decimal(13,2) NULL,
+	ProgressTotal decimal(13,2) NULL,
+	RMName varchar(255) COLLATE Latin1_General_CI_AS NULL,
+	[Member] varchar(255) COLLATE Latin1_General_CI_AS NULL,
+	VCIFList varchar(MAX) COLLATE Latin1_General_CI_AS NULL,
+	CONSTRAINT PK_Monitori_139242E87601D1A7 PRIMARY KEY (MonitoringAccountPlanningId)
+) GO

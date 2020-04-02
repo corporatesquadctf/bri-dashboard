@@ -1,0 +1,19 @@
+IF OBJECT_ID('dbo.exec_sum_loany', 'U') IS NOT NULL 
+DROP TABLE dbo.exec_sum_loany
+GO 
+
+select * into exec_sum_loany from (
+
+SELECT 
+    YEAR(POSISI) year, 
+    MONTH(POSISI) month,
+	DIV_ID division,
+	SUM(ISNULL(PEND_BUNGA,0)) pend_bunga, 
+    SUM(ISNULL(BAKI_DEBET_RATAS,0)) baki_debet_ratas
+FROM FACT_KREDIT_CPA
+INNER JOIN VIEW_CUSTOMER_MAPPING ON 
+	FACT_KREDIT_CPA.CIFNO = VIEW_CUSTOMER_MAPPING.CIF
+WHERE DIV_ID IS NOT NULL
+GROUP BY YEAR(POSISI), MONTH(POSISI), DIV_ID
+
+)source;

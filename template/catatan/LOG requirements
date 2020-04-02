@@ -1,0 +1,91 @@
+LOG:
+
+- login
+- Dashboard / home
+- performance
+	- exec sumary
+		- view
+
+	- segment client
+		- platinum
+			- demote
+		- gold
+			- promote
+			- demote
+			- reset
+
+		- silver
+			- promote
+			- demote
+			- reset
+			
+		- bronze
+			- promote
+
+	- top and bottom
+		- view
+		
+	- customrr leader 
+	- RM leader
+- Report
+	- monitoring
+		- view page
+		- new calendar entry
+
+	- timeseries
+- user management
+	- User
+		- view
+		- add
+		- edit
+		- delete
+
+	- access role
+		- view
+		- edit
+
+	- Role
+		- view
+		- add
+		- edit
+		- delete
+
+Master data
+	- division
+		- view
+		- add
+		- edit
+		- delete
+		- export
+
+	- bank
+		- view
+		- add
+		- edit
+		- delete
+		- export
+		
+	- parameter
+		- view
+		- add
+		- edit
+		- delete
+		- export
+		
+	- division relasi
+		- view
+		- add
+		- edit
+		- delete
+
+	- customer
+		- view
+		- add
+		- edit
+		- delete
+		- export
+		
+workflow
+	- delegasi
+		- view
+		- edit delegation

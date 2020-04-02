@@ -1,0 +1,61 @@
+<?php
+class UserManagementModel extends CI_Model {
+
+	public $ROLE_NAME;
+	public $DESCRIPTION;
+	public $SUBROLE_ID;
+
+	public $labels = [];
+
+	public function __construct() {
+		parent::__construct();
+
+		$this->labels = $this->_attributeLabels();
+		$this->load->database();
+	}
+
+	function getRole(){
+	 	$this->db->select("ROLE.ID,ROLE.ROLE_NAME,ROLE.DESCRIPTION,ROLE.ACCESS,SUB_ROLE.NAME,SUB_ROLE.DESCRIPTION");
+	    $this->db->from('ROLE');
+	    $this->db->join('SUB_ROLE', 'SUB_ROLE.ID = ROLE.ID');
+	    $query = $this->db->get();
+	  // $this->db->select("trn_employee.EMPLOYEE_ID,trn_employee.FIRST_NAME,trn_employee.LAST_NAME,trn_employee.EMAIL,trn_address.ADDRESS_LINE,trn_address.CITY");
+	  // $this->db->from('trn_employee');
+	  // $this->db->join('trn_address', 'trn_address.employee_id = trn_employee.employee_id');
+	  // $query = $this->db->get();
+	  return $query->result();
+	}
+
+	public function addNewUser($userinfo) {
+		$this->db->trans_start();
+        $this->db->insert('users', $userInfo);
+        
+        $insert_id = $this->db->insert_id();
+        
+        $this->db->trans_complete();
+        
+        return $insert_id;
+	}
+
+	public function update() {
+		$sql = sprintf("UPDATE mahasiswa SET DESCRIPTION='%s', SUBROLE_ID='%s' WHERE ROLE_NAME = '%d'",
+						$this->DESCRIPTION,
+						$this->SUBROLE_ID,
+						$this->ROLE_NAME
+						);
+		$this->db->query($sql);	
+	}
+
+	public function delete() {
+		$sql = sprintf("DELETE FROM mahasiswa WHERE ROLE_NAME='%d'",
+						$this->ROLE_NAME);
+		$this->db->query($sql);
+	}
+
+	public function read() {
+		// $sql = "SELECT * FROM mahasiswa ORDER BY ROLE_NAME";
+		$query = $this->db->get('mahasiswa');
+		return $query->result();
+	}
+}
+?>

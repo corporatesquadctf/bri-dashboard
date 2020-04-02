@@ -1,0 +1,2 @@
+ALTER TABLE CPA_KORPORASI_DEV_7.dbo.CustomerKorporasi ADD IsMain int DEFAULT 0 NOT NULL
+GO

@@ -1,0 +1,32 @@
+RABU, 04 APRIL 2018
+===================================================================================================================
+dibuatkan table untuk mapping : 
+- [USER] dengan [DIVISI]
+- [DIVISI] dengan [CUSTOMER] (pakai VCIF)
+
+
+
+MODULE REPORT - Monitoring
+Saat buka 'index' calendar langsung ter-highlight sesuai dengan data dari table [FACT_KREDIT_CPA.TGL_JTUH_TEMPO]
+informasi yang di ambil : nama company, nomor rekening per tanggal
+
+
+DOC_STATUS - ACCOUNT PLANNINGS
+1 => Submited
+2 => Checked
+3 => Published
+4 => Created
+5 => Rejected by Checker
+6 => Rejected by Signer
+
+
+
+KAMIS, 05 APRIL 2018
+===================================================================================================================
+SEGMENT CLIENT BY PROFIT
+Hitung summary CPA Existing per-Customer yang masuk dalam kategori Classification
+
+JUMAT, 06 APRIL 2018
+===================================================================================================================
+Ketika nama user di klik akan kebuka profile dari user yang di klik tersebut, tetapi hanya informasi(view) saja.
+tidak bisa melihat activity dan task dari user yang di klik.

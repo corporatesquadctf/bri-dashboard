@@ -1,0 +1,2 @@
+ALTER TABLE CPA_KORPORASI_DEV_7.dbo.Module ADD SortList int NULL 
+GO

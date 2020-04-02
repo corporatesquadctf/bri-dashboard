@@ -1,0 +1,18 @@
+IF OBJECT_ID('dbo.exec_sum_fee_income', 'U') IS NOT NULL 
+DROP TABLE dbo.exec_sum_fee_income
+GO 
+
+select * into exec_sum_fee_income from (
+
+SELECT 
+    YEAR(POSISI) year, 
+    MONTH(POSISI) month,
+	DIV_ID division,
+    SUM(ISNULL(FEEBASED,0)) fee
+FROM FACT_SUMMARY_LABA_RUGI
+INNER JOIN VIEW_CUSTOMER_MAPPING ON 
+FACT_SUMMARY_LABA_RUGI.CIFNO = VIEW_CUSTOMER_MAPPING.CIF
+WHERE DIV_ID IS NOT NULL
+GROUP BY YEAR(POSISI), MONTH(POSISI), DIV_ID
+
+)source;

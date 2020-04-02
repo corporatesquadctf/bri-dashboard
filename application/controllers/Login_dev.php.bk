@@ -1,0 +1,90 @@
+<?php
+
+abstract class Login_dev extends Login_base {
+
+    function process() {
+
+        $persn = $this->input->post('personalnumber');
+        /*$passw = $this->input->post('password');
+        $captcha = $this->input->post('captcha');
+
+        $this->form_validation->set_rules('personalnumber', 'Personal Number', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('captcha', 'Captcha', 'required');
+
+        $sessCaptcha = $this->session->userdata('captchaCode');
+        if ($captcha === $sessCaptcha) {
+            echo 'Captcha code matched.';
+        } else {
+            $this->session->set_flashdata('result_login', '<br>Captcha code does not match, please try again.');
+            redirect('logins');
+            return;
+        }
+
+        if (strlen($persn) <= 7) {
+            $persn = str_repeat("0", 8 - strlen($persn)) . $persn;
+        };
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('login_index');
+            return;
+        }
+
+        $postedPass = md5($passw);*/
+        $postedPn = $persn;
+        $where = array(
+            'a.personal_number' => $postedPn,
+            //'a.password' => $postedPass,
+            'a.status' => '1');
+
+        $this->db->select('a.*, b.token_number, b.expires, c.ROLE_NAME, c.SUBROLE_ID, d.SUBROLE_NAME');
+        $this->db->from('USERS a');
+        $this->db->join('TOKENS b', 'b.ID = a.token_id', 'left');
+        $this->db->join('ROLE c', 'c.ID = a.role_id', 'left');
+        $this->db->join('SUB_ROLE d', 'd.ID = c.ID', 'left');
+
+        $this->db->where($where);
+
+        $queryData = $this->db->get();
+
+        $data['data'] = $queryData->result();
+        $foundData = count($data['data']);
+
+        if ($foundData == 0) {
+            $this->session->set_flashdata('result_login', '<br>Password or Personal Number is not match.');
+            redirect('logins');
+            return;
+        }
+
+        foreach ($data['data'] as $k) {
+            $getAccess = $this->getAccess($k->role_id);
+            $session_data = array(
+                'USER_ID' => $k->id,
+                'PERSONAL_NUMBER' => $k->personal_number,
+                'NAME' => $k->name,
+                'OTHER_EMAIL' => $k->email_lainnya,
+                'CORP_EMAIL' => $k->email_corporate,
+                'UNIT_ORG' => $k->unit_organisasi,
+                'CORP_TITLE' => $k->corporate_title,
+                'PHONE_NUM1' => $k->phone_number1,
+                'PHONE_NUM2' => $k->phone_number2,
+                'ROLE_ID' => $k->role_id,
+                'ROLE_NAME' => $k->ROLE_NAME,
+                'SUBROLE_ID' => $k->SUBROLE_ID,
+                'SUBROLE_NAME' => $k->SUBROLE_NAME,
+                'TOKEN_NUM' => $k->token_number,
+                'EXPIRES_IN' => $k->expires,
+                'ADDON' => $k->addon,
+                'MODION' => $k->modion,
+                'ACCESS' => $getAccess,
+                'PROFILE_PIC' => $k->profile_picture,
+                'MODION' => $k->modion,
+                'DIVISION' => $k->division_id
+            );
+            $this->session->set_userdata($session_data);
+        }
+        redirect('profile');
+    }
+}
+
+?>

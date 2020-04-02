@@ -1,0 +1,77 @@
+URL Briconnect Development Service Login :
+
+http://172.18.133.52:81/korporasi/login
+Method : POST
+Headers : 
+Authorization:bearer 6762e73cafd51062e37b345b1a0338ee438a7c00
+
+Param Request (Body) :
+Contoh :
+personal_number:00077682
+password:12345678 ( untuk password saya hardcode 12345678 untuk semua personal number )
+
+ex Response Success :
+
+{
+  "success": true,
+  "code": 200,
+  "message": "Successfully Bristars Check",
+  "data": {
+    "rc": "00",
+    "deskripsi": "Successfully Login Bristars",
+    "detail": [
+      {
+        "PERNR": "00077682",
+        "SNAME": "Rully Harisman",
+        "ORGEH": "70128835",
+        "ORGEH_TX": "BAGIAN SYSTEM QUALITY CONTROL",
+        "HILFM": "026",
+        "HTEXT": "Staf & Jabatan setingkat",
+        "STELL": "50314300",
+        "STELL_TX": "JUNIOR SYSTEM ANALYST DESIGNER 2",
+        "ESELON": "S5",
+        "TIPE_UKER": "KP",
+        "DIVTL": "70128825",
+        "DIVTL_TX": "DIVISI PERENCANAAN DAN PENGEMBANGAN TSI"
+      }
+    ]
+  }
+}
+
+
+Ex Response Gagal :
+
+{
+  "success": true,
+  "code": 200,
+  "message": "User not found/invalid user and password",
+  "data": {
+    "rc": "21",
+    "deskripsi": "Failed For Login : Failed Login Bristars"
+  }
+}
+
+========================================== 
+
+    Grant Types : client_credentials
+    Client ID : 03050b99b787088e66a0b571c732d05d4e1ce5c7
+    Client Secret : d44c4ec9ff3b1722b0c5290173c0dd2be4e7553c
+     
+    client_id:d710f43a5e5d435585a6abc00909e1d5ac829f2e
+    client_secret:40b3ef2a2c9bf979f8d2bd2b5269ca4ccfdbeb15
+grant_type:client_credentials
+[09:57, 14/3/2018] +62 857-5984-9844: URL Briconnect Development Request Token : 
+http://172.18.133.52:81/oauth/token
+
+Param Request :
+client_id : d710f43a5e5d435585a6abc00909e1d5ac829f2e
+client_secret : 40b3ef2a2c9bf979f8d2bd2b5269ca4ccfdbeb15
+grant_type : client_credentials
+
+Response :
+{
+  "access_token": "6762e73cafd51062e37b345b1a0338ee438a7c00",
+  "expires_in": 43200,
+  "token_type": "Bearer",
+  "scope": "edctrx branch cr atmratas rc cust atmtrx brisim echannel"
+}

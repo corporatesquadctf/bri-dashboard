@@ -1,0 +1,98 @@
+workflow apps
+
+===USER====
+
+- RM  (maker)
+tidak bisa liat menu RM leaderboard
+tidak bisa liat profile RM lain
+bisa input akun planning
+
+- AVP,VP,EVP (checker/signer)
+bisa akses semua menu 
+tidak bisa input akun planning
+hanya bisa lihat berdasarkan masing2 divisi
+
+- Board
+sama seperti avp evp
+muncul semua divisi pada menu RM leaderboard
+ada fitur untuk filter lihat divisi A, divisi B atau select all
+
+- product specialist / owner
+menu customer leaderboard
+bisa liat akun planing
+
+- admin divisi
+pelimpahan akun
+
+- admin parameter
+sama seperti board, 
+bisa crud parameter
+
+- super user
+master data (management apps)
+
+=== GRAFIK === EXECUTIVE SUMMARY => 
+grafik ada 12:
+	plafond ---------------> SUMMARY_LABA_RUGI (LEBAR)
+				 			 [SUM][PLAFOND_EFEKTIF],
+				 			 [SUM][PLAFOND_AWAL]
+	loan outstanding ------> SUMMARY_LABA_RUGI
+				 			 [SUM][NLAI_TERCATAT],
+				 			 [SUM][NLAI_TERCATAT_RATAS]
+	Customer Profitability > SUMMARY_LABA_RUGI
+							 [TOTAL][LABA_RUGI_SETELAH_MODAL] / [DIVISI] 			 			 
+	loan sector -----------> SUMMARY_LABA_RUGI
+							 [TOTAL][SEKTOR_EKONOMI] / [TOTAL_DATA]
+	interest income -------> SUMMARY_LABA_RUGI 
+				 			 [SUM][PEND_BUNGA] & [SUM][PEND_BUNGA_AKUMULASI]
+	fee income ------------> SUMMARY_LABA_RUGI
+							 [SUM][PEND_FTP],
+							 [SUM][PEND_FTP_AKUMULASI]
+	classified loan -------> SUMMARY_LABA_RUGI
+							 [PERCENTAGE][KOLEKTIBILITAS] IF
+			 					[1] => LANCAR, 
+							 	[2] => DALAM PERHATIAN KHUSUS,
+							 	[3] => KURANG LANCAR
+							 	[4] => DIRAGUKAN
+							 	[5] => MACET
+	DPK -------------------> SUMMARY_LABA_RUGI
+							 [AVRGSALDO_SIMPANAN],
+							 [SALDO_SIMPANAN]
+	Deposito --------------> SELECT SALDO, AVRGSALDO FROM FACT_SIMPANAN_CPA WHERE DESC1 = 'DEPOSITO' 
+	Giro ------------------> SELECT SALDO, AVRGSALDO FROM FACT_SIMPANAN_CPA WHERE DESC1 = 'GIRO' 
+	
+	Loan Yield ------------> ?
+	profit ----------------> SUMMARY_LABA_RUGI (HAPUS)
+							 [SUM]([PEND_BUNGA] + [PEND_FTP]), 
+		  		 			 [SUM]([SUM][PEND_BUNGA_AKUMULASI] + [PEND_FTP_AKUMULASI]) 
+
+kalo korporasi select all grafik
+kalo institusi hanya tampil 4
+	DPK
+	Deposito
+	Biro
+	Customer Profitability
+
+RM->
+PLAFOND -> PLAFOND_AWAL
+OUtstanding -> BAKI_DEBET
+AVg. loan->BAKI_DEBET_RATAS -> RATAS OUTSTANDING
+NII->HAPUS
+OPERATING->HAPUS
+provisi->HAPUS
+SIMPANAN->SALDO
+RATAS SIMPANNAN -> AVG. SALDO
+CPA->
+
+
+MASTER PRODUCT -> ACCESSED BY SUPERUSER
+
+UPDATE 27 MARET 2018
+=================================================
+Module Cust. Leaderboards hanya view saja.
+Create Account Planning ada di page profile.
+
+NEW CASE !
+1 AP = 2 RM (BEDA DIV)
+
+1 AP = 2 CHECKER dan 2 SIGNER
