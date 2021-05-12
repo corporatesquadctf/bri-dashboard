@@ -2,7 +2,7 @@
   "requires": true,
   "lockfileVersion": 1,
   "dependencies": {
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "chartjs-color": {
       "integrity": "sha1-hKL7dVeH7YXDndbdjHsdiEKbrq4=",
       "requires": {
